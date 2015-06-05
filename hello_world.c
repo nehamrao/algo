@@ -2,6 +2,6 @@
 
 int main(void)
 {
-    printf("This is a test with GIT. Hello World\n");
+    printf("This is just a test with GIT. Hello World\n");
     return 0;
 }
