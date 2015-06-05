@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+/*
+ * Sorts input array in ascending order
+ * Args : Reference to array, size of array
+ * Return : N/A
+ */
 void bubble_sort(int n, int num[n])
 {
     int i,j;
