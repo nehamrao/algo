@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+/*
+ * Insertion sort involves pulling out a say kth 
+ * element of the input array and inserting it 
+ * S.T in the invariant section of the array
+ * which is sorted in increasing order.
+ */
 void insertion_sort_api(int n, int inp[])
 {
     //Sort the input
