@@ -6,6 +6,13 @@ struct node {
     struct node *next;
 };
 
+/*
+ * Creates a new node in the list. 
+ * Malloc data for the new node. Data
+ * member is provided as argument and
+ * next pointer will point to previous
+ * head pointer provided as argument
+ */
 struct node* create_node(struct node* head, int data) {
     struct node* new_node = malloc(sizeof(struct node));
     new_node->data = data;
@@ -18,7 +25,8 @@ struct node* create_node(struct node* head, int data) {
 /*
  * Invokes create_node for each
  * node creation required to 
- * form the linked list
+ * form the linked list. Argument
+ * is length of list
  */
 struct node* add_node(int num) {
     printf("CREATING a %d node linked list\n", num);
