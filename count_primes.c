@@ -52,6 +52,12 @@ int count_primes(int num) {
     return prime;
 }
 
+/*
+ * Find the number of primes
+ * less than any give non-negative
+ * integer.
+ * https://leetcode.com/problems/count-primes/
+ */
 int main (void) {
     
     int num = 1;
