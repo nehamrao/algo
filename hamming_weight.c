@@ -21,7 +21,7 @@ int hammingWeight(uint32_t n) {
 
 int main (void) {
 
-    uint32_t n = 0;
+    uint32_t n = 890;
     int count;
     count = hammingWeight(n);
     printf("Count %d\n", count);
