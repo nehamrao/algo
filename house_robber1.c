@@ -30,6 +30,8 @@ int rob (int *a, int n) {
      * Assigning the max sum robbed to a[i] in each iteration 
      */ 
     for (int i = 1; i < n; i++) {
+        if ((i-1) < 0)
+            a[i-1] = 0;
         a[i] = max_fn(a[i-1], a[i-2]+a[i]);    
     } 
     return a[n-1];
