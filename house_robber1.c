@@ -27,7 +27,7 @@ int rob (int *a, int n) {
      * Choosing house 2 => money at house 2 + max money 
      * at alternate house before it.
      * Not choosing house 2 => max money  till house 1 
-     * Assing the max sum robbed to a[i] in each iteration 
+     * Assigning the max sum robbed to a[i] in each iteration 
      */ 
     for (int i = 1; i < n; i++) {
         a[i] = max_fn(a[i-1], a[i-2]+a[i]);    
