@@ -99,7 +99,7 @@ int majorityElement (int *a, int n) {
         }
         i++;
     }
-
+    return a[0];
 }
 
 int main (void) {
