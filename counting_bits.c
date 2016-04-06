@@ -43,8 +43,8 @@ int* countBits(int num, int* returnSize) {
     
     for (i = 0; i <= num; i++) {
         
-        // 0 and Even Number
-        if (i != 0 || (i%2 == 0)) {
+        // Even Number
+        if (i%2 == 0) {
             ret[i] = findOneDigits(i);
         } else {
             ret[i] = ret[i-1]+1;
