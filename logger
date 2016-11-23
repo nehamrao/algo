@@ -1,0 +1,16 @@
+
+
+Script name:          Application
+
+Log file path:          /Library/Application Support/JAMF/Logs/2016_03_31_Application_08:11.txt
+Date and Time:          2016_03_31      08:11
+Old JSS URL is https://casper.cisco.com:8443
+New JSS URL is https://casper.cisco.com:8443/mdm
+###
+	
+	Attempting to connect to new JSS at https://casper.cisco.com:8443/mdm
+	There was a problem connecting to new JSS URL at casper.cisco.com. Exiting.
+	Old keychain backed up '/Library/Application Support/JAMF/JAMF.keychain' to '/Library/Application Support/JAMF/JAMF.keychain.bak'
+	There was a problem removing old MDM info. Falling back to old settings and Falling back to old settings and exiting!
+Alert - There was a problem with enrolling your Mac to the new JSS URL at https://casper.cisco.com:8443/mdm. We are rolling you back to the old JSS URL at https://casper.cisco.com:8443
+	There was a problem creating JAMF config file for https://casper.cisco.com:8443.
