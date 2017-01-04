@@ -4,6 +4,10 @@
 
 using namespace std;
 
+#define UNVISITED 0
+#define PROCESSING 1 
+#define VISITED 2
+
 // Directed graph
 class Graph {
   public:
@@ -144,10 +148,48 @@ class Graph {
       return paths;
     }
   
+    bool hasCycles () {
+        // Simple DFS: Keep track of all visited nodes, 
+        // nodes in process, completely processed nodes
+        
+        // Mark all nodes unvisited
+        vector<int> state(num_vertices, UNVISITED);  
+      
+        // Do a dfs for all nodes
+        for (int i = 0; i < num_vertices; i++) {
+            if (state[i] == UNVISITED) {
+                if (simpleDFS(&state, i) == true) {
+                    return true;      
+                }
+            }
+        }
+        return false;
+    }
+  
+    bool simpleDFS(vector<int> *state, int from) {
+      
+      // Mark node as in process
+      state->at(from) =  PROCESSING;
+      
+      // For each neighbor of from node, do a dfs.
+      for (auto it = adj->at(from).begin(); it != adj->at(from).end(); it++) {
+            if (state->at(*it) == UNVISITED && simpleDFS(state, *it)) {
+                cout << "Here for node " << *it << " \n";
+                return true; // Cycle exists in subtree rooted at *it
+            } else if (state->at(*it) == PROCESSING) {
+                cout << "Here diff for node " << *it << " \n";
+                return true; // Cycle exists at current node
+            }
+      }
+      
+      state->at(from) = VISITED;
+      return false;
+    }
+  
   private:
     vector<vector<int>> *adj;
     int num_vertices;
-     
+    
     void doDFS (int from, int to, vector<bool> *visited, vector<vector<int>> *paths, vector<int> *sub) {
       // Mark current node as visited
       visited->at(from) = true;
@@ -172,6 +214,7 @@ class Graph {
           }
       }
     }
+  
 };
 
 // To execute C++, please define "int main()"
@@ -181,6 +224,7 @@ int main() {
   Graph g(5);
   
   g.addEdge(0,1);
+  g.addEdge(1,0);
   g.addEdge(0,2);
   g.addEdge(1,4);
   g.addEdge(2,4);
@@ -196,7 +240,16 @@ int main() {
   }
   
   // Determine all paths between two nodes in graph
-  vector<vector<int>> paths = g.findAllPaths(4,3);
+  vector<vector<int>> paths = g.findAllPaths(0,4);
+  
+  // Determine cycle in a graph
+  bool cyclePresent = g.hasCycles();
+  if (cyclePresent) {
+      cout << "Detected cycle!\n";
+  } else {
+      cout << "Cycle not detected\n";  
+  }
+  
   //g.printVector(paths);
   
   return 0;
