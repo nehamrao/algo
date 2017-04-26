@@ -1,0 +1,140 @@
+1) Given two numbers x and n, find number of ways x can be expressed as sum of n-th power of unique natural numbers.
+Input  : x = 100, n = 2
+Output : 3
+Explanation: 100 = 102
+             OR 62 + 82
+             OR 12 + 32 + 42 + 52 + 72
+
+int numWaysNthPower(int x, int n) {
+	
+	int currNum = 1;
+	int curSum = 0;
+	return numWaysHelper(x, n, currNum, &currSum);
+}
+
+int numWaysHelper(int x, int n, int currNum, int *currSum) {
+	
+	int results = 0;
+	
+	int p = power(currNum, n);
+	while (p + *currSum < x) {
+		results += numWaysHelper(x, n, currNum+1, p + *currSum);
+		currNum++;
+		p = power(currNum, n);
+	}
+	
+	// Base case 
+	if (p + *currSum == x) {
+		results++;
+	}
+
+	return results;
+	
+}
+
+2) Recursive insertion sort
+
+
+    14, 1, 23, 4, 3, 28, 2
+
+
+void recursiveInsertionSort(vector<int> *input, int inp_size) {
+    
+    if (inp_size <= 1) {
+        return;
+    }
+    
+    // Recursively sort n-1 elements
+    recursiveInsertionSort(input, inp_size-1);
+    
+    // Base case ensure you do the key insertion correctly for last element
+    // Move all elements greater than the last element to one position 
+    // greater than their current position. 
+    int last = input->at(inp_size-1);
+    int j = inp_size-2;
+    
+    while (j >= 0 && input->at(j) > last) {
+        input->at(j+1) = input->at(j);
+        j--;
+    }
+    // Insert key
+    input->at(j) = last;
+    
+}
+
+
+3) Recursive bubble sort [Move largest element to end]
+
+void recursiveBubbleSort(vector<int> *input, int inp_size) {
+    
+    // Base case
+    if (inp_size <= 1) {
+        return;
+    }
+    
+    // Need to move out the largest element to the end
+    for (int i = 0 ; i < inp_size-1; i++) {
+        if (input->at(i) > input->at(i+1)) {
+            swap(input->at(i), input->at(i+1));
+        }
+    }
+    
+    recursiveBubbleSort(input, inp_size - 1);
+}
+
+4) Generate binary strings (exclude consecutive ones)
+
+// currSize is 0
+void generateBinary(vector<string> &output, int maxSize, int currSize, string *currStr, boolean prevOne)
+{
+    
+    // Hit consecutive ones, remove the 1
+    if (prevOne || currStr->size() == 0) {
+        return;	
+    }
+    
+    if (currSize == maxSize-1) {
+        output.push_back(*currStr);
+        return;
+    }
+    
+    // Choose 1 or 0 at each index
+    currStr->append(‘0’);
+    generateBinary(maxSize, currSize++, currStr, false);
+    currStr->erase(currSize, 1);
+    
+    currStr->append(‘1’)
+    generateBinary(maxSize, currSize++, currStr, true);
+    currStr->erase(currSize, 1);
+
+}
+
+5) Given a positive integer n, the task is to find whether this number reaches to 1 after performing following two operations:-
+
+    If n is even, then n = n/2.
+    If n is odd, then n = 3*n + 1.
+    Repeat above steps, until it becomes 1.
+    
+    
+boolean numReachesOne (float n, map<int, int> ledger) {
+
+    if (n == 1) {
+        return true;
+    } 
+    
+    // There can be a cycle, we may see a number again from the past
+    if (ledger.find(n) != ledger.end()) {
+        return false;
+    }
+    
+    if (n%2 == 0) {
+        // Even
+        ledger.insert(std::pair<int, int> (n/2, 1));
+        return numReachesOne(n/2);
+    } else if (n%2 == 1) {
+        ledger.insert(std::pair<int, int> (3*n+1, 1));
+        return numReachesOne(3*n+1);
+    }
+    
+    return n%2 ? numReachesOne(n/2):numReachesOne(3*n+1);
+}

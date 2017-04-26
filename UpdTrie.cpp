@@ -1,8 +1,12 @@
 #include <iostream>
 #include <unordered_map>
+#include <vector>
 #include <string>
+#include <string.h>
 using namespace std;
 
+// neha, nehb, nehbd
+// neh --> neha, nehb
 
 class TrieNode {
   public:
@@ -50,7 +54,7 @@ class Trie {
         curr->endOfWord = true;
     }
     
-    void findWordExists (string word) {
+    bool findWordExists (string word) {
         TrieNode* curr = root;
         
         // For each character of the word
@@ -61,34 +65,84 @@ class Trie {
             // If found char
             if (iter != (curr->m).end()) {
                 curr = (curr->m)[*it];
-            
             } else {
                 cout << "Word " << word << " not found in trie\n";
-                return;
+                return false;
             }
-            
         }
         
-
-        if (curr->endOfWord && word.length() > 0)
-            cout << "Found word " << word << " in trie\n";
-        else
-            cout << "Word "<< word << " not found in trie\n";
+        if (curr->endOfWord) {
+            cout << "Found word " << word << " in trie\n"; 
+            return true;
+        } else {
+             cout << "Word "<< word << " not found in trie\n";
+             return false;
+        }
     }
     
-    void findPrefix (string word) {
+    bool findPrefix (string word) {
         TrieNode* curr = root;
         
         for (auto it = word.begin(); it != word.end(); it++) {
             if ((curr->m).find(*it) == (curr->m).end()) {
                 cout << "Prefix " << word << " not in trie\n";
+                return false;
             } else {
                 curr = (curr->m)[*it];
             }
         }
         cout << "Prefix " << word << " found in trie\n";
+        return true;
     }
     
+    void autocompleteHelper (TrieNode* t, string* word, vector<string>* result, string* prefix) {
+      /*
+       * Recursive function to determine all words in trie
+       * with the given prefix. Base case: Reached end of word
+       */
+      if (!t || (findWordExists(*word))) {
+            cout << "Here to push result " << *word << "\n";
+            result->push_back(*word);
+            return;
+      }
+      
+      unordered_map<char, TrieNode*>::iterator it;
+      // Recursive case: Iterate over the map of the trie node and recurse
+      for (auto it = (t->m).begin(); it != (t->m).end(); it++) {
+           cout << "Map found char " << it->first <<"\n";
+           *word = *word + it->first; 
+           autocompleteHelper(it->second, word, result, prefix);
+           word->erase(word->end() - 1);
+           cout << "Reset to " << *word << "\n";
+      }
+    }
+  
+    void autocomplete (string prefix) {
+      // Traverse trie to find prefix
+      TrieNode* curr = root;
+      
+      for (auto it = prefix.begin(); it != prefix.end(); it++) {
+           if ((curr->m).find(*it) == (curr->m).end()) {
+               cout <<  "Prefix " << prefix << " not in trie\n";
+               return;
+           } else {
+               // Value of that char in the map of trie
+               curr = (curr->m)[*it]; 
+           }
+      }
+      
+      // At this point, curr will point to the next trie node after the prefix
+      string word = prefix;// Push back current prefix
+      
+      vector<string> result;
+      autocompleteHelper(curr, &word, &result, &prefix);
+      
+      cout << "Autocomplete words are:\n";
+      for (int i = 0; i < result.size(); i++) {
+          cout << result[i] << "\n";
+      }
+    }
+  
     void deleteWord (string word) {
         // Word not present
         // Find end of word, that node has empty map => delete node
@@ -103,12 +157,13 @@ class Trie {
 int main() {
     Trie *t = new Trie();
     
-    // Test methods
+    //Test methods
     t->insertWord("neha");
-    t->insertWord("nena");
-    t->insertWord("gudla");
-    t->insertWord("dddd");
-    t->findWordExists("p98o");
-    t->findPrefix("neh");
+    t->insertWord("nehb");
+    t->insertWord("nehbd");
+    t->insertWord("nehbdef");
+    t->findWordExists("neha");
+    bool found = t->findPrefix("neha");
+    t->autocomplete("neh");
     return 0;
 }
