@@ -1,6 +1,6 @@
 
 /*
- [A] [Question]:  We have a bunch of jobs and each has dependancies, give an order in which the jobs can be completed
+* [A] [Question]:  We have a bunch of jobs and each has dependancies, give an order in which the jobs can be completed
 */
 
 #include <iostream>
