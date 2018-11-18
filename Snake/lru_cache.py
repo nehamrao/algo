@@ -38,7 +38,7 @@ class UnitTestLRUCache(unittest.TestCase):
             
     def test_cache_hit(self):
         val = UnitTestLRUCache.cache.cache_get(12)
-        print val
+        print(val)
         self.assertEquals(val, 2)
         self.assertIsNotNone(val)
         pass

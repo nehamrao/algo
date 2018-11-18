@@ -1,3 +1,4 @@
+*NOTES*
 
 1) Static method in python (@staticmethod) can be invoked w/o class initialization
 2) Files named __init__.py are used to mark directories on disk as Python package directories.
@@ -10,5 +11,5 @@
     without the need to modify the function itself, augmenting the original functionality, thus decorating it.
     In python we can do a whole bunch of cool things - 
     https://www.thecodeship.com/patterns/guide-to-python-function-decorators/
- 4) Closeure: Inner functions have access to the enclosing scope
+ 4) Closure: Inner functions have access to the enclosing scope
 
