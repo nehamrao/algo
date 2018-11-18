@@ -18,7 +18,7 @@ int karatsuba (int x, int y)
     
     // Base case
     if (x < 10 || y < 10)
-	return x*y;
+	    return x*y;
 
     int lenx = getlen(x);
     int leny = getlen(y);
